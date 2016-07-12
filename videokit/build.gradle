@@ -4,8 +4,7 @@ apply plugin: 'maven-publish'
 repositories {
     mavenCentral()
 }
-
-group 'com.infullmobile'
+group 'com.infullmobile.android'
 version '1.0'
 
 task sourceJar(type: Jar) {
@@ -17,11 +16,11 @@ publishing {
     publications {
         maven(MavenPublication) {
             groupId project.group
-            artifactId "VideoKitFFmpeg" // identifier of you library in provided group
+            artifactId "video-kit-ffmpeg"
             version project.version
 
             artifact sourceJar
-            artifact("$buildDir/outputs/aar/<library_name>.aar")
+            artifact("$buildDir/outputs/aar/video-kit-ffmpeg.aar")
 
             pom.withXml {
                 asNode().appendNode('description', 'Library for video processing based on FFmpeg.')
@@ -72,8 +71,8 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        minSdkVersion 7
-        targetSdkVersion 23
+        minSdkVersion 10
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
