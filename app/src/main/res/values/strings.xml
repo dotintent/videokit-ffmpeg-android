@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">VideoKit Test</string>
+    <string name="success_message">Great success!</string>
+    <string name="failure_message">Epic fail!</string>
+    <string name="processing_message">Please, wait, while video processing is going</string>
+</resources>

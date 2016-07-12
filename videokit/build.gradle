@@ -1,0 +1,91 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
+
+repositories {
+    mavenCentral()
+}
+
+group 'com.infullmobile'
+version '1.0'
+
+task sourceJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier "sources"
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId project.group
+            artifactId "VideoKitFFmpeg" // identifier of you library in provided group
+            version project.version
+
+            artifact sourceJar
+            artifact("$buildDir/outputs/aar/<library_name>.aar")
+
+            pom.withXml {
+                asNode().appendNode('description', 'Library for video processing based on FFmpeg.')
+            }
+        }
+    }
+    repositories {
+        maven {
+            name "iFMPrivateRelease"
+            url "s3://maven-ifm-internal/private"
+            credentials(AwsCredentials) {
+                accessKey project.getMavenAccessKey()
+                secretKey project.getMavenSecretKey()
+            }
+        }
+        maven {
+            name "iFMPublicRelease"
+            url "s3://maven-ifm-internal/public"
+            credentials(AwsCredentials) {
+                accessKey project.getMavenAccessKey()
+                secretKey project.getMavenSecretKey()
+            }
+        }
+    }
+}
+
+ext {
+    getMavenSecretKey = {
+        return project.hasProperty('mavenSecretKey') ? project['mavenSecretKey'] : ""
+    }
+    getMavenAccessKey = {
+        return project.hasProperty('mavenAccessKey') ? project['mavenAccessKey'] : ""
+    }
+}
+
+task("publishIFMPrivate", dependsOn: "publishMavenPublicationToIFMPrivateReleaseRepository") {
+    group "publishing"
+    description "Uploads artifacts to inFullMobile private maven repository"
+}
+
+task("publishIFMPublic", dependsOn: "publishMavenPublicationToIFMPublicReleaseRepository") {
+    group "publishing"
+    description "Uploads artifacts to inFullMobile public maven repository"
+}
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        minSdkVersion 7
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+}
