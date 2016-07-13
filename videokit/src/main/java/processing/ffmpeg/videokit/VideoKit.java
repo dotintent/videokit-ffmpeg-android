@@ -23,6 +23,7 @@ public class VideoKit {
         System.loadLibrary("videokit");
     }
 
+    private static final String FFMPEG_PROGRAM_NAME = "ffmpeg";
     private static final int SUCCESS_CODE = 0;
     private static final MediaMetadataRetriever metadataRetriever = new MediaMetadataRetriever();
 
@@ -37,25 +38,14 @@ public class VideoKit {
         logLevel = level;
     }
 
-    /**
-     * Call FFmpeg with specified arguments
-     * @param args FFmpeg arguments
-     * @return ret_code equal to 0 if success, for handled codes see file ffmpeg_ret_codes in docs
-     */
     private int process(String[] args) {
         final String[] params = new String[args.length + 1];
-        params[0] = "ffmpeg";
+        params[0] = FFMPEG_PROGRAM_NAME;
         System.arraycopy(args, 0, params, 1, args.length);
 
         return run(logLevel.getValue(), params);
     }
 
-    /**
-     * Native call of ffmpeg's main
-     * @param loglevel if 0 there is no log from native code, if 1 - full log of ffmpeg process
-     * @param args arguments to pass to ffmpeg's main, basically command-line flags
-     * @return code with which ffmpeg have exited
-     */
     private native int run(int loglevel, String[] args);
 
     public CommandBuilder buildCommand() {
