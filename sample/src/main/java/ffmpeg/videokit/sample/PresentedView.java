@@ -1,4 +1,4 @@
-package video_processing.ffmpeg.testing;
+package ffmpeg.videokit.sample;
 
 import java.util.List;
 

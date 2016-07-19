@@ -1,4 +1,4 @@
-package video_processing.ffmpeg.testing;
+package ffmpeg.videokit.sample;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import video_processing.ffmpeg.testing.R;
 
 /**
  * Created by Ilja Kosynkin on 06.07.2016.
@@ -25,7 +27,8 @@ public class VideosAdapter extends RecyclerView.Adapter<VideoViewHolder>
 
     @Override
     public VideoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.video_item, parent, false);
+        final View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.video_item, parent, false);
         return new VideoViewHolder(view);
     }
 

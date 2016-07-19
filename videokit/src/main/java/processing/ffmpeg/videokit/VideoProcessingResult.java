@@ -2,6 +2,7 @@ package processing.ffmpeg.videokit;
 
 /**
  * Created by Ilja Kosynkin on 06.07.2016.
+ * Copyright by inFullMobile
  */
 public class VideoProcessingResult {
     private final int returnCode;
@@ -13,7 +14,7 @@ public class VideoProcessingResult {
     }
 
     public boolean isSuccessfull() {
-        return returnCode == 0;
+        return returnCode == VideoKit.FFMPEG_SUCCESS_RETURN_CODE;
     }
 
     public String getPath() {

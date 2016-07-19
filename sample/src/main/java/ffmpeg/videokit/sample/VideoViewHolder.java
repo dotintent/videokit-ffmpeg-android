@@ -1,4 +1,4 @@
-package video_processing.ffmpeg.testing;
+package ffmpeg.videokit.sample;
 
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+
+import video_processing.ffmpeg.testing.R;
 
 /**
  * Created by Ilja Kosynkin on 06.07.2016.

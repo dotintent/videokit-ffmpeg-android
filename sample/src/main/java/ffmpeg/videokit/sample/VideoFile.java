@@ -1,4 +1,4 @@
-package video_processing.ffmpeg.testing;
+package ffmpeg.videokit.sample;
 
 /**
  * Created by Ilja Kosynkin on 06.07.2016.

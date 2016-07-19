@@ -1,4 +1,4 @@
-package video_processing.ffmpeg.testing;
+package ffmpeg.videokit.sample;
 
 import android.content.Context;
 
@@ -19,7 +19,7 @@ public class Presenter implements VideosAdapter.Callback, ProcessingListener {
     public Presenter(Context context, PresentedView view) {
         presentedView = view;
         model = new Model(context);
-        videoKit = new VideoKit(context);
+        videoKit = new VideoKit();
 
         loadData();
     }
@@ -38,17 +38,16 @@ public class Presenter implements VideosAdapter.Callback, ProcessingListener {
                 .addCustomCommand("-ss 1 -t 3")
                 .copyVideoCodec()
                 .addExperimentalFlag()
-                .withListener(this)
-                .processVideoAsync();
+                .executeCommandAsync(this);
     }
 
     @Override
-    public void onSuccess(VideoProcessingResult processingResult) {
+    public void onSuccess(String path) {
         presentedView.showSuccessSnackbar();
     }
 
     @Override
-    public void onFailure(VideoProcessingResult processingResult) {
+    public void onFailure(int returnCode) {
         presentedView.showFailureSnackbar();
     }
 }

@@ -1,4 +1,4 @@
-package video_processing.ffmpeg.testing;
+package ffmpeg.videokit.sample;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -10,12 +10,13 @@ import android.view.View;
 
 import java.util.List;
 
+import video_processing.ffmpeg.testing.R;
+
 public class MainActivity extends AppCompatActivity implements PresentedView  {
     private static final int SPAN_COUNT = 3;
 
     private ProgressDialog progressDialog;
     private VideosAdapter adapter;
-    private Presenter presenter;
     private View rootView;
 
     @Override
@@ -36,10 +37,11 @@ public class MainActivity extends AppCompatActivity implements PresentedView  {
     @Override
     public void onResume() {
         super.onResume();
-        presenter = new Presenter(this, this);
+        final Presenter presenter = new Presenter(this, this);
         adapter.setCallback(presenter);
     }
 
+    @SuppressWarnings("ConstantConditions")
     private void setupList() {
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.gallery);
         adapter = new VideosAdapter();

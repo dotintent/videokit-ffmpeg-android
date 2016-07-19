@@ -1,1 +1,1 @@
-include ':app', ':videokit'
+include ':videokit', ':sample'

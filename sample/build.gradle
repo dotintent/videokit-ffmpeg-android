@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "video_processing.ffmpeg.videokit"
+        applicationId "ffmpeg.videokit.sample"
         minSdkVersion 10
         targetSdkVersion 22
         versionCode 1
@@ -27,3 +27,4 @@ dependencies {
     compile project(':videokit')
     //compile 'com.infullmobile.android:video-kit-ffmpeg:1.0'
 }
+
