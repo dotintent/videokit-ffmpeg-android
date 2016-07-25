@@ -20,6 +20,7 @@ public interface ICommandBuilder {
     ICommandBuilder setAutoThreadingFlag();
     ICommandBuilder limitFrameRate(int framerate);
     ICommandBuilder setTuneToFast();
-    VideoProcessingResult executeCommandSync();
-    void executeCommandAsync(ProcessingListener listener);
+    Command build();
+    SyncCommandExecutor buildAndPassToSyncExecutor();
+    AsyncCommandExecutor buildAndPassToAsyncExecutor(ProcessingListener listener);
 }

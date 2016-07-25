@@ -32,9 +32,15 @@ class CommandBuilder implements ICommandBuilder {
 
     private final List<String> flags = new ArrayList<>();
 
+    private final VideoKit videoKit;
+
     private String inputPath;
     private String outputPath;
     private boolean deleteInput;
+
+    CommandBuilder(VideoKit videoKit) {
+        this.videoKit = videoKit;
+    }
 
     @Override
     public CommandBuilder overwriteOutput() {
@@ -153,20 +159,19 @@ class CommandBuilder implements ICommandBuilder {
     }
 
     @Override
-    public VideoProcessingResult executeCommandSync() {
+    public Command build() {
         flags.add(outputPath);
 
-        final SyncCommandExecutor commandExecutor =
-                new SyncCommandExecutor(outputPath, inputPath, deleteInput, flags);
-        return commandExecutor.execute();
+        return new Command(flags, outputPath);
     }
 
     @Override
-    public void executeCommandAsync(ProcessingListener listener) {
-        flags.add(outputPath);
+    public SyncCommandExecutor buildAndPassToSyncExecutor() {
+        return new SyncCommandExecutor(build(), videoKit);
+    }
 
-        final AsyncCommandExecutor commandExecutor =
-                new AsyncCommandExecutor(outputPath, inputPath, deleteInput, flags, listener);
-        commandExecutor.execute();
+    @Override
+    public AsyncCommandExecutor buildAndPassToAsyncExecutor(ProcessingListener listener) {
+        return new AsyncCommandExecutor(build(), videoKit, listener);
     }
 }

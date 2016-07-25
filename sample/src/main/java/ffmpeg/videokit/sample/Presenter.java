@@ -4,7 +4,6 @@ import android.content.Context;
 
 import processing.ffmpeg.videokit.ProcessingListener;
 import processing.ffmpeg.videokit.VideoKit;
-import processing.ffmpeg.videokit.VideoProcessingResult;
 
 /**
  * Created by Ilja Kosynkin on 07.07.2016.
@@ -38,7 +37,8 @@ public class Presenter implements VideosAdapter.Callback, ProcessingListener {
                 .addCustomCommand("-ss 1 -t 3")
                 .copyVideoCodec()
                 .addExperimentalFlag()
-                .executeCommandAsync(this);
+                .buildAndPassToAsyncExecutor(this)
+                .execute();
     }
 
     @Override

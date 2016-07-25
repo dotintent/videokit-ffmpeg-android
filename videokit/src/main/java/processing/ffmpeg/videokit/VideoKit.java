@@ -6,7 +6,6 @@ package processing.ffmpeg.videokit;
  */
 public class VideoKit {
     public static final int FFMPEG_SUCCESS_RETURN_CODE = 0;
-    private static VideoKit instance;
 
     static {
         System.loadLibrary("avutil-54");
@@ -19,32 +18,29 @@ public class VideoKit {
         System.loadLibrary("videokit");
     }
 
-    public static VideoKit getInstance() {
-        return instance;
-    }
-
     private LogLevel logLevel = LogLevel.NO_LOG;
-
-    public VideoKit() {
-        if (instance != null) {
-            throw new RuntimeException("VideoKit already initialized. " +
-                    "Use getInstance instead of constructor");
-        }
-
-        instance = this;
-    }
 
     public void  setLogLevel(LogLevel level) {
         logLevel = level;
     }
 
-    public int process(String[] args) {
+    int process(String[] args) {
         return run(logLevel.getValue(), args);
     }
 
+    @SuppressWarnings("JniMissingFunction")
     private native int run(int loglevel, String[] args);
 
     public ICommandBuilder buildCommand() {
-        return new CommandBuilder();
+        return new CommandBuilder(this);
+    }
+
+    public SyncCommandExecutor createSyncExecutorWithCommand(Command command) {
+        return new SyncCommandExecutor(command, this);
+    }
+
+    public AsyncCommandExecutor createAsyncExecutorWithCommand(Command command,
+                                                               ProcessingListener listener) {
+        return new AsyncCommandExecutor(command, this, listener);
     }
 }
