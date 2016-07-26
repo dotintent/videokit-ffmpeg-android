@@ -1,7 +1,7 @@
 package processing.ffmpeg.videokit;
 
 /**
- * Created by Ilja on 19.07.16.
+ * Created by Ilja Kosynkin on 19.07.16.
  * Copyright by inFullMobile
  */
 public class SyncCommandExecutor extends AbstractCommandExecutor {
@@ -11,6 +11,11 @@ public class SyncCommandExecutor extends AbstractCommandExecutor {
 
     public VideoProcessingResult execute() {
         final int returnCode = videoKit.process(command.getAsArray());
+
+        if (returnCode != VideoKit.FFMPEG_SUCCESS_RETURN_CODE) {
+            deleteOutputFile();
+        }
+
         return new VideoProcessingResult(returnCode, command.getOutputPath());
     }
 }

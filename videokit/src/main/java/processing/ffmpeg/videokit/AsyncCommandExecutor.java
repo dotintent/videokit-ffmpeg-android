@@ -19,6 +19,7 @@ public class AsyncCommandExecutor extends AbstractCommandExecutor {
                 if (returnCode == VideoKit.FFMPEG_SUCCESS_RETURN_CODE) {
                     listener.onSuccess(command.getOutputPath());
                 } else {
+                    deleteOutputFile();
                     listener.onFailure(returnCode);
                 }
             }

@@ -34,9 +34,8 @@ class CommandBuilder implements ICommandBuilder {
 
     private final VideoKit videoKit;
 
-    private String inputPath;
     private String outputPath;
-    private boolean deleteInput;
+    private boolean inputWasSet;
 
     CommandBuilder(VideoKit videoKit) {
         this.videoKit = videoKit;
@@ -55,7 +54,7 @@ class CommandBuilder implements ICommandBuilder {
             throw new RuntimeException("File provided by you does not exists");
         }
 
-        inputPath = inputFilePath;
+        inputWasSet = true;
         flags.add(INPUT_FILE_FLAG);
         flags.add(inputFilePath);
         return this;
@@ -130,12 +129,6 @@ class CommandBuilder implements ICommandBuilder {
     }
 
     @Override
-    public CommandBuilder deleteInput(boolean delete) {
-        deleteInput = delete;
-        return this;
-    }
-
-    @Override
     public CommandBuilder setAutoThreadingFlag() {
         flags.add(THREADS_FLAG);
         flags.add(THREADS_NUMBER);
@@ -160,6 +153,14 @@ class CommandBuilder implements ICommandBuilder {
 
     @Override
     public Command build() {
+        if (!inputWasSet) {
+            throw new RuntimeException("You must specify input path");
+        }
+
+        if (TextUtils.isEmpty(outputPath)) {
+            throw new RuntimeException("You must specify output path");
+        }
+
         flags.add(outputPath);
 
         return new Command(flags, outputPath);
@@ -167,11 +168,11 @@ class CommandBuilder implements ICommandBuilder {
 
     @Override
     public SyncCommandExecutor buildAndPassToSyncExecutor() {
-        return new SyncCommandExecutor(build(), videoKit);
+        return videoKit.createSyncExecutorWithCommand(build());
     }
 
     @Override
     public AsyncCommandExecutor buildAndPassToAsyncExecutor(ProcessingListener listener) {
-        return new AsyncCommandExecutor(build(), videoKit, listener);
+        return videoKit.createAsyncExecutorWithCommand(build(), listener);
     }
 }

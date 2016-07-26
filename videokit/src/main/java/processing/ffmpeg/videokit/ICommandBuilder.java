@@ -16,7 +16,6 @@ public interface ICommandBuilder {
     ICommandBuilder addCustomCommand(String customCommand);
     ICommandBuilder limitVideoBitrate(String bitrate);
     ICommandBuilder addExperimentalFlag();
-    ICommandBuilder deleteInput(boolean delete);
     ICommandBuilder setAutoThreadingFlag();
     ICommandBuilder limitFrameRate(int framerate);
     ICommandBuilder setTuneToFast();
