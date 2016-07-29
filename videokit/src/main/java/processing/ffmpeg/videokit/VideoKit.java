@@ -5,8 +5,6 @@ package processing.ffmpeg.videokit;
  * Copyright by inFullMobile
  */
 public class VideoKit {
-    public static final int FFMPEG_SUCCESS_RETURN_CODE = 0;
-
     static {
         System.loadLibrary("avutil-54");
         System.loadLibrary("swresample-1");
@@ -20,7 +18,7 @@ public class VideoKit {
 
     private LogLevel logLevel = LogLevel.NO_LOG;
 
-    public void  setLogLevel(LogLevel level) {
+    public void setLogLevel(LogLevel level) {
         logLevel = level;
     }
 
@@ -31,16 +29,7 @@ public class VideoKit {
     @SuppressWarnings("JniMissingFunction")
     private native int run(int loglevel, String[] args);
 
-    public ICommandBuilder buildCommand() {
-        return new CommandBuilder(this);
-    }
-
-    public SyncCommandExecutor createSyncExecutorWithCommand(Command command) {
-        return new SyncCommandExecutor(command, this);
-    }
-
-    public AsyncCommandExecutor createAsyncExecutorWithCommand(Command command,
-                                                               ProcessingListener listener) {
-        return new AsyncCommandExecutor(command, this, listener);
+    public CommandBuilder createCommand() {
+        return new VideoCommandBuilder(this);
     }
 }

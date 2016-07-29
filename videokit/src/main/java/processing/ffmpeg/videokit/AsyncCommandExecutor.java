@@ -3,32 +3,31 @@ package processing.ffmpeg.videokit;
 import java.lang.ref.WeakReference;
 
 /**
- * Created by Ilja on 19.07.16.
+ * Created by Ilja Kosynkin on 19.07.16.
  * Copyright by inFullMobile
  */
-public class AsyncCommandExecutor extends AbstractCommandExecutor {
+public class AsyncCommandExecutor {
     private final WeakReference<ProcessingListener> listenerWeakReference;
+    private final Command command;
 
     private final Runnable executionRunnable = new Runnable() {
         @Override
         public void run() {
+            final VideoProcessingResult result = command.execute();
+
             final ProcessingListener listener = listenerWeakReference.get();
             if (listener != null) {
-                final int returnCode = videoKit.process(command.getAsArray());
-
-                if (returnCode == VideoKit.FFMPEG_SUCCESS_RETURN_CODE) {
-                    listener.onSuccess(command.getOutputPath());
+                if (result.isSuccessful()) {
+                    listener.onSuccess(result.getPath());
                 } else {
-                    deleteOutputFile();
-                    listener.onFailure(returnCode);
+                    listener.onFailure(result.getCode());
                 }
             }
         }
     };
 
-    AsyncCommandExecutor(Command command, VideoKit videoKit, ProcessingListener listener) {
-        super(command, videoKit);
-
+    public AsyncCommandExecutor(Command command, ProcessingListener listener) {
+        this.command = command;
         this.listenerWeakReference = new WeakReference<>(listener);
     }
 

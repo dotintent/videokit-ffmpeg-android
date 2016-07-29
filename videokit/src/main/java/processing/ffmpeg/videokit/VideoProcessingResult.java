@@ -13,11 +13,15 @@ public class VideoProcessingResult {
         pathToFile = path;
     }
 
-    public boolean isSuccessfull() {
-        return returnCode == VideoKit.FFMPEG_SUCCESS_RETURN_CODE;
+    public boolean isSuccessful() {
+        return returnCode == 0;
     }
 
     public String getPath() {
         return pathToFile;
+    }
+
+    public int getCode() {
+        return returnCode;
     }
 }

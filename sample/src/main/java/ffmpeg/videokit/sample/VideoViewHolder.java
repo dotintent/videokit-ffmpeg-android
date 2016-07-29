@@ -10,7 +10,8 @@ import android.widget.ImageView;
 import video_processing.ffmpeg.testing.R;
 
 /**
- * Created by Ilja Kosynkin on 06.07.2016.
+ * Created by Ilja Kosynkin on 07.07.2016.
+ * Copyright by inFullMobile
  */
 public class VideoViewHolder extends RecyclerView.ViewHolder {
     private final ImageView image;

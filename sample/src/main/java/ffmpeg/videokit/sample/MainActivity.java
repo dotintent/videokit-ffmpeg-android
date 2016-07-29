@@ -11,7 +11,10 @@ import android.view.View;
 import java.util.List;
 
 import video_processing.ffmpeg.testing.R;
-
+/**
+ * Created by Ilja Kosynkin on 07.07.2016.
+ * Copyright by inFullMobile
+ */
 public class MainActivity extends AppCompatActivity implements PresentedView  {
     private static final int SPAN_COUNT = 3;
 

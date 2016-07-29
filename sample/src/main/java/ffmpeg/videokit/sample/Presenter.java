@@ -2,11 +2,14 @@ package ffmpeg.videokit.sample;
 
 import android.content.Context;
 
+import processing.ffmpeg.videokit.AsyncCommandExecutor;
+import processing.ffmpeg.videokit.Command;
 import processing.ffmpeg.videokit.ProcessingListener;
 import processing.ffmpeg.videokit.VideoKit;
 
 /**
  * Created by Ilja Kosynkin on 07.07.2016.
+ * Copyright by inFullMobile
  */
 public class Presenter implements VideosAdapter.Callback, ProcessingListener {
     private static final String POSTFIX = "_p.mp4";
@@ -30,15 +33,17 @@ public class Presenter implements VideosAdapter.Callback, ProcessingListener {
     @Override
     public void onMediaFileSelected(String path) {
         presentedView.showSpinner();
-        videoKit.buildCommand()
+
+        final Command command = videoKit.createCommand()
                 .overwriteOutput()
                 .addInputPath(path)
                 .addOutputPath(path + POSTFIX)
                 .addCustomCommand("-ss 1 -t 3")
                 .copyVideoCodec()
                 .addExperimentalFlag()
-                .buildAndPassToAsyncExecutor(this)
-                .execute();
+                .build();
+
+        new AsyncCommandExecutor(command, this).execute();
     }
 
     @Override

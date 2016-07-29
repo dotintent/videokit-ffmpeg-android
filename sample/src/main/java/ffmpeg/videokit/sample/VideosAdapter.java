@@ -12,7 +12,8 @@ import java.util.List;
 import video_processing.ffmpeg.testing.R;
 
 /**
- * Created by Ilja Kosynkin on 06.07.2016.
+ * Created by Ilja Kosynkin on 07.07.2016.
+ * Copyright by inFullMobile
  */
 public class VideosAdapter extends RecyclerView.Adapter<VideoViewHolder>
         implements VideoViewHolder.Callbacks {

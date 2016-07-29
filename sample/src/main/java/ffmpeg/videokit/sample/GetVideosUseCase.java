@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * Created by Ilja Kosynkin on 07.07.2016.
+ * Copyright by inFullMobile
  */
 public class GetVideosUseCase {
     private static final MediaMetadataRetriever retriever = new MediaMetadataRetriever();
