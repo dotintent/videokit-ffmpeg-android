@@ -45,11 +45,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListViewHolder>
     }
 
     public void setCallback(Callback callback) {
-        if (callback == null) {
-            this.callback = Callback.EMPTY;
-        } else {
-            this.callback = callback;
-        }
+        this.callback = callback == null ? Callback.EMPTY : callback;
     }
 
     @Override

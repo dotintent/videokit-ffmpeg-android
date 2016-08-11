@@ -67,7 +67,7 @@ public class Model {
             retriever.setDataSource(path);
             return retriever.
                     extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             return null;
         }
     }

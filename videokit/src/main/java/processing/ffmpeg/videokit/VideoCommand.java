@@ -8,7 +8,6 @@ import java.util.List;
  * Copyright by inFullMobile
  */
 class VideoCommand implements Command {
-    public static final int FFMPEG_SUCCESS_RETURN_CODE = 0;
     private static final String FFMPEG_PROGRAM_NAME = "ffmpeg";
 
     private final List<String> arguments;
@@ -25,7 +24,7 @@ class VideoCommand implements Command {
     @Override
     public VideoProcessingResult execute() {
         final int returnCode = videoKit.process(getArgumentsAsArray());
-        if (returnCode == FFMPEG_SUCCESS_RETURN_CODE) {
+        if (returnCode == VideoProcessingResult.SUCCESSFUL_RESULT) {
             return new VideoProcessingResult(returnCode, outputPath);
         } else {
             deleteOutput();

@@ -24,7 +24,8 @@ public class CommandTest {
         testPath = getTestFilePath();
 
         videoKit = spy(new VideoKit());
-        doReturn(0).when(videoKit).process(Mockito.any(String[].class));
+        doReturn(VideoProcessingResult.SUCCESSFUL_RESULT)
+                .when(videoKit).process(Mockito.any(String[].class));
     }
 
     private String getTestFilePath() {
@@ -45,6 +46,6 @@ public class CommandTest {
         final int result = command.execute().getCode();
 
         //then
-        assertEquals(0, result);
+        assertEquals(VideoProcessingResult.SUCCESSFUL_RESULT, result);
     }
 }

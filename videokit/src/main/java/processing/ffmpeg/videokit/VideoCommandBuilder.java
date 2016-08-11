@@ -22,8 +22,6 @@ class VideoCommandBuilder implements CommandBuilder {
     private static final String VIDEO_BITRATE_FLAG = "-b:v";
     private static final String STRICT_FLAG = "-strict";
     private static final String EXPERIMENTAL_FLAG = "-2";
-    private static final String THREADS_FLAG = "-threads";
-    private static final String THREADS_NUMBER = "5";
     private static final String REMOVE_AUDIO_STREAM_FLAG = "-an";
     private static final String FRAME_RATE_FLAG = "-framerate";
     private static final String TUNE_FLAG = "-tune";
@@ -125,13 +123,6 @@ class VideoCommandBuilder implements CommandBuilder {
     public CommandBuilder addExperimentalFlag() {
         flags.add(STRICT_FLAG);
         flags.add(EXPERIMENTAL_FLAG);
-        return this;
-    }
-
-    @Override
-    public CommandBuilder setAutoThreadingFlag() {
-        flags.add(THREADS_FLAG);
-        flags.add(THREADS_NUMBER);
         return this;
     }
 

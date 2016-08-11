@@ -16,7 +16,6 @@ public interface CommandBuilder {
     CommandBuilder addCustomCommand(String customCommand);
     CommandBuilder limitVideoBitrate(String bitrate);
     CommandBuilder addExperimentalFlag();
-    CommandBuilder setAutoThreadingFlag();
     CommandBuilder limitFrameRate(int framerate);
     CommandBuilder setTuneToFast();
     Command build();

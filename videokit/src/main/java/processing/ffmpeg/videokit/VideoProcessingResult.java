@@ -5,6 +5,8 @@ package processing.ffmpeg.videokit;
  * Copyright by inFullMobile
  */
 public class VideoProcessingResult {
+    public static final int SUCCESSFUL_RESULT = 0;
+
     private final int returnCode;
     private final String pathToFile;
 
