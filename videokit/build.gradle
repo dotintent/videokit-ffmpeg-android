@@ -16,11 +16,11 @@ publishing {
     publications {
         maven(MavenPublication) {
             groupId project.group
-            artifactId "video-kit-ffmpeg"
+            artifactId "videokit-release"
             version project.version
 
             artifact sourceJar
-            artifact("$buildDir/outputs/aar/video-kit-ffmpeg.aar")
+            artifact("$buildDir/outputs/aar/videokit-release.aar")
 
             pom.withXml {
                 asNode().appendNode('description', 'Library for video processing based on FFmpeg.')
