@@ -28,12 +28,6 @@ public class CommandTest {
                 .when(videoKit).process(Mockito.any(String[].class));
     }
 
-    private String getTestFilePath() {
-        final ClassLoader classLoader = getClass().getClassLoader();
-        final URL resource = classLoader.getResource("test");
-        return resource.getPath();
-    }
-
     @Test
     public void shouldReturnSuccess() {
         //given
@@ -47,5 +41,11 @@ public class CommandTest {
 
         //then
         assertEquals(VideoProcessingResult.SUCCESSFUL_RESULT, result);
+    }
+
+    private String getTestFilePath() {
+        final ClassLoader classLoader = getClass().getClassLoader();
+        final URL resource = classLoader.getResource("test");
+        return resource.getPath();
     }
 }

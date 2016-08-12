@@ -47,12 +47,6 @@ public class CommandBuilderTest {
         builder.addInputPath("aaaaa");
     }
 
-    private String getTestFilePath() {
-        final ClassLoader classLoader = getClass().getClassLoader();
-        final URL resource = classLoader.getResource("test");
-        return resource.getPath();
-    }
-
     @Test
     public void shouldCreateCorrectBuilder() {
         //given
@@ -60,20 +54,6 @@ public class CommandBuilderTest {
 
         //when
         builder.build();
-    }
-
-    private boolean areStringArraysEqual(String[] actual, String[] expected) {
-        if (actual.length != expected.length) {
-            return false;
-        }
-
-        for (int i = 0; i < actual.length; i++) {
-            if (!actual[i].equals(expected[i])) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     @Test
@@ -219,5 +199,25 @@ public class CommandBuilderTest {
         return new VideoCommandBuilder(videoKit)
                 .addInputPath(testPath)
                 .addOutputPath(testPath);
+    }
+
+    private String getTestFilePath() {
+        final ClassLoader classLoader = getClass().getClassLoader();
+        final URL resource = classLoader.getResource("test");
+        return resource.getPath();
+    }
+
+    private boolean areStringArraysEqual(String[] actual, String[] expected) {
+        if (actual.length != expected.length) {
+            return false;
+        }
+
+        for (int i = 0; i < actual.length; i++) {
+            if (!actual[i].equals(expected[i])) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
