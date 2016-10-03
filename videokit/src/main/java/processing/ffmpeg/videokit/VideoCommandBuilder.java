@@ -32,8 +32,10 @@ class VideoCommandBuilder implements CommandBuilder {
 
     private final VideoKit videoKit;
 
+    private final List<String> inputPaths = new ArrayList<>();
     private String outputPath;
-    private boolean inputWasSet;
+
+    private boolean experimentalFlagSet;
 
     VideoCommandBuilder(VideoKit videoKit) {
         this.videoKit = videoKit;
@@ -52,14 +54,12 @@ class VideoCommandBuilder implements CommandBuilder {
             throw new RuntimeException("File provided by you does not exists");
         }
 
-        inputWasSet = true;
-        flags.add(INPUT_FILE_FLAG);
-        flags.add(inputFilePath);
+        inputPaths.add(inputFilePath);
         return this;
     }
 
     @Override
-    public CommandBuilder addOutputPath(String outputPath) {
+    public CommandBuilder outputPath(String outputPath) {
         if (TextUtils.isEmpty(outputPath)) {
             throw new RuntimeException("It's not a good idea to pass empty path here");
         }
@@ -120,9 +120,8 @@ class VideoCommandBuilder implements CommandBuilder {
     }
 
     @Override
-    public CommandBuilder addExperimentalFlag() {
-        flags.add(STRICT_FLAG);
-        flags.add(EXPERIMENTAL_FLAG);
+    public CommandBuilder experimentalFlag() {
+        experimentalFlagSet = true;
         return this;
     }
 
@@ -144,16 +143,49 @@ class VideoCommandBuilder implements CommandBuilder {
 
     @Override
     public Command build() {
-        if (!inputWasSet) {
-            throw new RuntimeException("You must specify input path");
-        }
+        checkInputPathsAndThrowIfEmpty();
+        checkOutputPathAndThrowIfEmpty();
 
+        final List<String> newFlags = new ArrayList<>();
+
+        addInputPathsToFlags(newFlags);
+        copyFlagsToNewDestination(newFlags);
+        addExperimentalFlagIfNecessary(newFlags);
+
+        newFlags.add(outputPath);
+
+        return new VideoCommand(newFlags, outputPath, videoKit);
+    }
+
+    private void checkInputPathsAndThrowIfEmpty() {
+        if (inputPaths.isEmpty()) {
+            throw new RuntimeException("You must specify at least one input path");
+        }
+    }
+
+    private void checkOutputPathAndThrowIfEmpty() {
         if (TextUtils.isEmpty(outputPath)) {
             throw new RuntimeException("You must specify output path");
         }
+    }
 
-        flags.add(outputPath);
+    private void addInputPathsToFlags(List<String> flags) {
+        for (String path : inputPaths) {
+            flags.add(INPUT_FILE_FLAG);
+            flags.add(path);
+        }
+    }
 
-        return new VideoCommand(flags, outputPath, videoKit);
+    private void copyFlagsToNewDestination(List<String> destination) {
+        for (String flag : flags) {
+            destination.add(flag);
+        }
+    }
+
+    private void addExperimentalFlagIfNecessary(List<String> flags) {
+        if (experimentalFlagSet) {
+            flags.add(STRICT_FLAG);
+            flags.add(EXPERIMENTAL_FLAG);
+        }
     }
 }

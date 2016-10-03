@@ -15,7 +15,7 @@ import static org.mockito.Mockito.spy;
  * Copyright by inFullMobile
  */
 public class CommandTest {
-    VideoKit videoKit;
+    private VideoKit videoKit;
 
     private String testPath;
 
@@ -33,7 +33,7 @@ public class CommandTest {
         //given
         final CommandBuilder builder = new VideoCommandBuilder(videoKit);
         final  Command command = builder.addInputPath(testPath)
-                                        .addOutputPath(testPath)
+                                        .outputPath(testPath)
                                         .build();
 
         //when

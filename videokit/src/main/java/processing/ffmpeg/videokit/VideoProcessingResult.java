@@ -5,18 +5,18 @@ package processing.ffmpeg.videokit;
  * Copyright by inFullMobile
  */
 public class VideoProcessingResult {
-    public static final int SUCCESSFUL_RESULT = 0;
+    static final int SUCCESSFUL_RESULT = 0;
 
     private final int returnCode;
     private final String pathToFile;
 
-    public VideoProcessingResult(int code, String path) {
+    VideoProcessingResult(int code, String path) {
         returnCode = code;
         pathToFile = path;
     }
 
     public boolean isSuccessful() {
-        return returnCode == 0;
+        return returnCode == SUCCESSFUL_RESULT;
     }
 
     public String getPath() {
