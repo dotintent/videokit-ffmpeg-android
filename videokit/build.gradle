@@ -5,7 +5,7 @@ repositories {
     mavenCentral()
 }
 group 'com.infullmobile.android'
-version '1.0'
+version '1.0.1'
 
 task sourceJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -73,8 +73,8 @@ android {
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.1"
     }
 
     testOptions {

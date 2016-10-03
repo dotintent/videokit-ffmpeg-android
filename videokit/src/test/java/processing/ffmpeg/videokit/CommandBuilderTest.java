@@ -19,7 +19,7 @@ public class CommandBuilderTest {
     private String testPath;
 
     @Mock VideoKit videoKit;
-    ArgumentCaptor<String[]> argumentCaptor = ArgumentCaptor.forClass(String[].class);
+    private ArgumentCaptor<String[]> argumentCaptor = ArgumentCaptor.forClass(String[].class);
 
     @Before
     public void setUp() {
@@ -54,6 +54,19 @@ public class CommandBuilderTest {
 
         //when
         builder.build();
+    }
+
+    @Test
+    public void shouldAppendFewInputPaths() {
+        // given
+        final CommandBuilder builder = getCorrectCommandBuilder().addInputPath(testPath);
+        final String[] expectedFlags = { "ffmpeg", "-i", testPath, "-i", testPath, testPath };
+
+        // when
+        builder.build().execute();
+
+        // then
+        assertTrue(areStringArraysEqual(argumentCaptor.getValue(), expectedFlags));
     }
 
     @Test
@@ -154,9 +167,9 @@ public class CommandBuilderTest {
     }
 
     @Test
-    public void shouldAppendExperimentalFlag() {
+    public void shouldAppendExperimentalFlagToTheEnd() {
         // given
-        final CommandBuilder builder = getCorrectCommandBuilder().addExperimentalFlag();
+        final CommandBuilder builder = getCorrectCommandBuilder().experimentalFlag();
         final String[] expectedFlags =
                 { "ffmpeg", "-i", testPath, "-strict", "-2", testPath };
 
@@ -198,7 +211,7 @@ public class CommandBuilderTest {
     private CommandBuilder getCorrectCommandBuilder() {
         return new VideoCommandBuilder(videoKit)
                 .addInputPath(testPath)
-                .addOutputPath(testPath);
+                .outputPath(testPath);
     }
 
     private String getTestFilePath() {
