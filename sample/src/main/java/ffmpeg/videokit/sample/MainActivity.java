@@ -72,10 +72,10 @@ public class MainActivity extends AppCompatActivity implements VideoListAdapter.
         final Command command = videoKit.createCommand()
                 .overwriteOutput()
                 .addInputPath(path)
-                .addOutputPath(path + POSTFIX)
+                .outputPath(path + POSTFIX)
                 .addCustomCommand("-ss 1 -t 3")
                 .copyVideoCodec()
-                .addExperimentalFlag()
+                .experimentalFlag()
                 .build();
 
         new AsyncCommandExecutor(command, this).execute();

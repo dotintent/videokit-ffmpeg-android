@@ -8,14 +8,14 @@ package processing.ffmpeg.videokit;
 public interface CommandBuilder {
     CommandBuilder overwriteOutput();
     CommandBuilder addInputPath(String inputFilePath);
-    CommandBuilder addOutputPath(String outputPath);
+    CommandBuilder outputPath(String outputPath);
     CommandBuilder trimForDuration(int startPosition, int duration);
     CommandBuilder withoutAudio();
     CommandBuilder copyVideoCodec();
     CommandBuilder addCrop(int x, int y, int width, int height);
     CommandBuilder addCustomCommand(String customCommand);
     CommandBuilder limitVideoBitrate(String bitrate);
-    CommandBuilder addExperimentalFlag();
+    CommandBuilder experimentalFlag();
     CommandBuilder limitFrameRate(int framerate);
     CommandBuilder setTuneToFast();
     Command build();

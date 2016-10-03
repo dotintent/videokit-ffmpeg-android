@@ -16,7 +16,7 @@ public class VideoKit {
             System.loadLibrary("avdevice-56");
             System.loadLibrary("videokit");
         } catch (UnsatisfiedLinkError e) {
-
+            e.printStackTrace();
         }
     }
 
