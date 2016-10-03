@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "ffmpeg.videokit.sample"
-        minSdkVersion 14
+        minSdkVersion 10
         targetSdkVersion 25
         versionCode 2
         versionName "1.0.1"
