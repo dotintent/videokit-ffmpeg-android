@@ -5,7 +5,7 @@ repositories {
     mavenCentral()
 }
 group 'com.infullmobile.android'
-version '1.0.1'
+version '1.1.0'
 
 task sourceJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -67,14 +67,14 @@ task("publishIFMPublic", dependsOn: "publishMavenPublicationToIFMPublicReleaseRe
 }
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
         minSdkVersion 10
-        targetSdkVersion 22
-        versionCode 2
-        versionName "1.0.1"
+        targetSdkVersion 25
+        versionCode 3
+        versionName "1.1.0"
     }
 
     testOptions {

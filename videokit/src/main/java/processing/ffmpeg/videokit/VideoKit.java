@@ -7,13 +7,13 @@ package processing.ffmpeg.videokit;
 public class VideoKit {
     static {
         try {
-            System.loadLibrary("avutil-54");
-            System.loadLibrary("swresample-1");
-            System.loadLibrary("avcodec-56");
-            System.loadLibrary("avformat-56");
-            System.loadLibrary("swscale-3");
-            System.loadLibrary("avfilter-5");
-            System.loadLibrary("avdevice-56");
+            System.loadLibrary("avutil");
+            System.loadLibrary("swresample");
+            System.loadLibrary("avcodec");
+            System.loadLibrary("avformat");
+            System.loadLibrary("swscale");
+            System.loadLibrary("avfilter");
+            System.loadLibrary("avdevice");
             System.loadLibrary("videokit");
         } catch (UnsatisfiedLinkError e) {
             e.printStackTrace();
@@ -30,7 +30,6 @@ public class VideoKit {
         return run(logLevel.getValue(), args);
     }
 
-    @SuppressWarnings("JniMissingFunction")
     private native int run(int loglevel, String[] args);
 
     public CommandBuilder createCommand() {
