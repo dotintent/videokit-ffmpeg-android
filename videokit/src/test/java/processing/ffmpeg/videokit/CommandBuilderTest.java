@@ -44,7 +44,7 @@ public class CommandBuilderTest {
         final CommandBuilder builder = new VideoCommandBuilder(null);
 
         //when
-        builder.addInputPath("aaaaa");
+        builder.inputPath("aaaaa");
     }
 
     @Test
@@ -59,7 +59,7 @@ public class CommandBuilderTest {
     @Test
     public void shouldAppendFewInputPaths() {
         // given
-        final CommandBuilder builder = getCorrectCommandBuilder().addInputPath(testPath);
+        final CommandBuilder builder = getCorrectCommandBuilder().inputPath(testPath);
         final String[] expectedFlags = { "ffmpeg", "-i", testPath, "-i", testPath, testPath };
 
         // when
@@ -127,7 +127,7 @@ public class CommandBuilderTest {
     @Test
     public void shouldAppendCropFlags() {
         // given
-        final CommandBuilder builder = getCorrectCommandBuilder().addCrop(0, 0, 100, 100);
+        final CommandBuilder builder = getCorrectCommandBuilder().crop(0, 0, 100, 100);
         final String[] expectedFlags =
                 { "ffmpeg", "-i", testPath, "-vf", "crop=100:100:0:0", testPath };
 
@@ -141,7 +141,7 @@ public class CommandBuilderTest {
     @Test
     public void shouldAppendCustomCommand() {
         // given
-        final CommandBuilder builder = getCorrectCommandBuilder().addCustomCommand("--KABOOOOM!!!");
+        final CommandBuilder builder = getCorrectCommandBuilder().customCommand("--KABOOOOM!!!");
         final String[] expectedFlags =
                 { "ffmpeg", "-i", testPath, "--KABOOOOM!!!", testPath };
 
@@ -197,7 +197,7 @@ public class CommandBuilderTest {
     @Test
     public void shouldAppendFastTuneFlag() {
         // given
-        final CommandBuilder builder = getCorrectCommandBuilder().setTuneToFast();
+        final CommandBuilder builder = getCorrectCommandBuilder().fastTune();
         final String[] expectedFlags =
                 { "ffmpeg", "-i", testPath, "-tune", "fastdecode", "-tune", "zerolatency", testPath };
 
@@ -210,7 +210,7 @@ public class CommandBuilderTest {
 
     private CommandBuilder getCorrectCommandBuilder() {
         return new VideoCommandBuilder(videoKit)
-                .addInputPath(testPath)
+                .inputPath(testPath)
                 .outputPath(testPath);
     }
 

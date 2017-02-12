@@ -48,7 +48,7 @@ class VideoCommandBuilder implements CommandBuilder {
     }
 
     @Override
-    public CommandBuilder addInputPath(String inputFilePath) {
+    public CommandBuilder inputPath(String inputFilePath) {
         final File inputFile = new File(inputFilePath);
         if (!inputFile.exists()) {
             throw new RuntimeException("File provided by you does not exists");
@@ -91,14 +91,14 @@ class VideoCommandBuilder implements CommandBuilder {
     }
 
     @Override
-    public CommandBuilder addCrop(int x, int y, int width, int height) {
+    public CommandBuilder crop(int x, int y, int width, int height) {
         flags.add(VIDEO_FILTER_FLAG);
         flags.add("crop=" + width + ":" + height + ":" + x + ":" + y);
         return this;
     }
 
     @Override
-    public CommandBuilder addCustomCommand(String customCommand) {
+    public CommandBuilder customCommand(String customCommand) {
         if (TextUtils.isEmpty(customCommand)) {
             return this;
         }
@@ -133,7 +133,7 @@ class VideoCommandBuilder implements CommandBuilder {
     }
 
     @Override
-    public CommandBuilder setTuneToFast() {
+    public CommandBuilder fastTune() {
         flags.add(TUNE_FLAG);
         flags.add(FAST_DECODE);
         flags.add(TUNE_FLAG);

@@ -32,7 +32,7 @@ public class CommandTest {
     public void shouldReturnSuccess() {
         //given
         final CommandBuilder builder = new VideoCommandBuilder(videoKit);
-        final  Command command = builder.addInputPath(testPath)
+        final  Command command = builder.inputPath(testPath)
                                         .outputPath(testPath)
                                         .build();
 
