@@ -62,7 +62,7 @@ I've tried to make library as debuggable as it even possible, taking in account 
 If you getting failures from VideoKit and log in not really helpfull try to look into *docs* folder in *ffmpeg_return_codes*
 file. In this file you not only have list of possible return codes with which FFMpeg can exit, but also file and number of
 line of code in which exit was called.    
-Version of FFmpeg is 2.8.4 and changed sources can be found over here:    
+Version of FFmpeg is 3.2.4 and changed sources can be found over here:    
 [Development Kit](https://github.com/IljaKosynkin/FFmpeg-Development-Kit)
 
 ## License
