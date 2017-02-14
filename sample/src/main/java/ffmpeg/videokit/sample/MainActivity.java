@@ -24,13 +24,13 @@ public class MainActivity extends AppCompatActivity implements VideoListAdapter.
     private VideoKit videoKit = new VideoKit();
 
     private ProgressDialog progressDialog;
-    private VideoListAdapter adapter;
     private View rootView;
     private Model model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         rootView = findViewById(android.R.id.content);
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements VideoListAdapter.
     private void setupList() {
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.gallery);
 
-        adapter = new VideoListAdapter();
+        final VideoListAdapter adapter = new VideoListAdapter();
         adapter.setCallback(this);
 
         recyclerView.setAdapter(adapter);
@@ -71,9 +71,9 @@ public class MainActivity extends AppCompatActivity implements VideoListAdapter.
 
         final Command command = videoKit.createCommand()
                 .overwriteOutput()
-                .addInputPath(path)
+                .inputPath(path)
                 .outputPath(path + POSTFIX)
-                .addCustomCommand("-ss 1 -t 3")
+                .customCommand("-ss 1 -t 3")
                 .copyVideoCodec()
                 .experimentalFlag()
                 .build();
