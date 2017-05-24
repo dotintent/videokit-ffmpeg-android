@@ -2,6 +2,7 @@ package ffmpeg.videokit.sample;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,7 @@ import video_processing.ffmpeg.testing.R;
  * Created by Ilja Kosynkin on 07.07.2016.
  * Copyright by inFullMobile
  */
-public class VideoListAdapter extends RecyclerView.Adapter<VideoListViewHolder>
+class VideoListAdapter extends RecyclerView.Adapter<VideoListViewHolder>
         implements VideoListViewHolder.Callbacks {
 
     private Callback callback = Callback.EMPTY;
@@ -39,12 +40,12 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListViewHolder>
         holder.bind(mediaFile, this);
     }
 
-    public void setData(List<VideoListItem> videos) {
+    void setData(List<VideoListItem> videos) {
         videoListItems = videos;
         notifyDataSetChanged();
     }
 
-    public void setCallback(Callback callback) {
+    void setCallback(Callback callback) {
         this.callback = callback == null ? Callback.EMPTY : callback;
     }
 
@@ -53,7 +54,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListViewHolder>
         callback.onMediaFileSelected(videoListItem.videoPath);
     }
 
-    public interface Callback {
+    interface Callback {
         void onMediaFileSelected(String path);
 
         Callback EMPTY = new Callback() {

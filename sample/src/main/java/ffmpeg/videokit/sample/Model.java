@@ -14,16 +14,16 @@ import java.util.List;
  * Created by Ilja Kosynkin on 07.07.2016.
  * Copyright by inFullMobile
  */
-public class Model {
+class Model {
     private static final MediaMetadataRetriever retriever = new MediaMetadataRetriever();
 
     private final Context context;
 
-    public Model(Context context) {
+    Model(Context context) {
         this.context = context.getApplicationContext();
     }
 
-    public List<VideoListItem> getVideos() {
+    List<VideoListItem> getVideos() {
         final Cursor cursor = getMedia();
 
         final List<VideoListItem> videos = new ArrayList<>();

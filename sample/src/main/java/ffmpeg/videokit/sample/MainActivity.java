@@ -1,11 +1,17 @@
 package ffmpeg.videokit.sample;
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import processing.ffmpeg.videokit.AsyncCommandExecutor;
@@ -20,6 +26,7 @@ import video_processing.ffmpeg.testing.R;
 public class MainActivity extends AppCompatActivity implements VideoListAdapter.Callback, ProcessingListener {
     private static final String POSTFIX = "_p.mp4";
     private static final int SPAN_COUNT = 3;
+    private static final int REQUEST_CODE = 1337;
 
     private VideoKit videoKit = new VideoKit();
 
@@ -36,14 +43,38 @@ public class MainActivity extends AppCompatActivity implements VideoListAdapter.
         rootView = findViewById(android.R.id.content);
         model = new Model(this);
 
+        Log.d("ARCHITECTURE", System.getProperty("os.arch"));
+
         setupDialog();
-        setupList();
+        setupListIfWritePermissionGranted();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE) {
+            setupList();
+        }
     }
 
     private void setupDialog() {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.processing_message));
         progressDialog.setCancelable(false);
+    }
+
+    private void setupListIfWritePermissionGranted() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_CODE);
+        } else {
+            setupList();
+        }
     }
 
     @SuppressWarnings("ConstantConditions")
