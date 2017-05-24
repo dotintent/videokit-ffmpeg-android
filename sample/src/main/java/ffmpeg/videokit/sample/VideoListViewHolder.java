@@ -13,15 +13,15 @@ import video_processing.ffmpeg.testing.R;
  * Created by Ilja Kosynkin on 07.07.2016.
  * Copyright by inFullMobile
  */
-public class VideoListViewHolder extends RecyclerView.ViewHolder {
+class VideoListViewHolder extends RecyclerView.ViewHolder {
     private final ImageView image;
 
-    public VideoListViewHolder(View itemView) {
+    VideoListViewHolder(View itemView) {
         super(itemView);
         image = (ImageView) itemView.findViewById(R.id.image);
     }
 
-    public void bind(final VideoListItem videoListItem, final Callbacks callbacks) {
+    void bind(final VideoListItem videoListItem, final Callbacks callbacks) {
         if (videoListItem != null) {
             final Bitmap thumbnail = MediaStore.Video.Thumbnails.getThumbnail(
                     itemView.getContext().getContentResolver(), videoListItem.videoId,
@@ -38,7 +38,7 @@ public class VideoListViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    public interface Callbacks {
+    interface Callbacks {
         void onMediaSelected(@NonNull VideoListItem videoListItem);
     }
 }
