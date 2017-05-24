@@ -6,7 +6,7 @@ Hopefully VideoKit will resolve some of them.
 
 ## Setup
 Basic setup just add following line of code to your gradle.build file:    
-`compile 'com.infullmobile.android:videokit-release:1.0.1'`   
+`compile 'com.infullmobile.android:videokit-release:1.1.1'`   
 Also, if you haven't use inFullMobile public maven in your project before, don't forget to add following line to your
 repositories:   
 `maven { url 'https://maven.infullmobile.com/public' }`     
