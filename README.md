@@ -20,9 +20,9 @@ Well, let me show you some code:
         final VideoKit videoKit = new VideoKit();
         final Command command = videoKit.createCommand()
                 .overwriteOutput()
-                .addInputPath(path)
+                .inputPath(path)
                 .outputPath(path + POSTFIX)
-                .addCustomCommand("-ss 1 -t 3")
+                .customCommand("-ss 1 -t 3")
                 .copyVideoCodec()
                 .experimentalFlag()
                 .build();
